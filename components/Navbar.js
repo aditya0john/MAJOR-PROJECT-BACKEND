@@ -79,11 +79,12 @@ export default function Navbar() {
               COURSES
             </Link>
           </nav>
+          <hr className="mt-10 mb-2" />
           <button
             className="border border-white text-white hover:bg-red-400 rounded-md p-2 px-3 p-1 m-2"
             onClick={logout}
           >
-            LogOut
+            Logout
           </button>
         </div>
       </aside>

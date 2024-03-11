@@ -52,10 +52,11 @@ export default function ChapterForm({
   return (
     <form onSubmit={editChapter}>
       <div className="p-2">
-        <div className="bg-purple-200 rounded p-4">
+        <div className="bg-white border border-black rounded-lg p-4 mt-2">
           <label>
             <p className="uppercase font-bold">chapter name</p>
             <input
+              className="border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
               type="text"
               name="title"
               value={chapterName}
@@ -67,6 +68,7 @@ export default function ChapterForm({
           <label>
             <p className="uppercase font-bold">chapter content</p>
             <textarea
+              className="border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
               name="content"
               value={content}
               placeholder="Enter Chapter Content"
@@ -76,6 +78,7 @@ export default function ChapterForm({
           <label>
             <p className="uppercase font-bold">chapter summary</p>
             <textarea
+              className="border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
               name="content"
               value={summary}
               placeholder="Enter Chapter summary"
@@ -84,7 +87,7 @@ export default function ChapterForm({
           </label>
           <button
             type="submit"
-            className="btn flex mt-5 bg-yellow-400 text-black p-1 rounded-md"
+            className="btn flex mt-5 border border-black text-black p-1 rounded-md change_button"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -56,11 +56,15 @@ export default function editChapters() {
 
   return (
     <Layout2>
-      <h1 className="uppercase text-black font-bold p-3">EDIT THE COURSE</h1>
-      <hr />
+      <div className="bg-yellow-100 rounded-lg p-3 mt-3">
+        <h1 className="shdg uppercase text-black font-bold p-3 flex justify-center">
+          EDIT THE COURSE
+        </h1>
+        <hr />
 
-      {console.log("ye rha data jo form mein JARAA", products)}
-      {products && <ChapterForm courseId={courseId} {...products} />}
+        {console.log("ye rha data jo form mein JARAA", products)}
+        {products && <ChapterForm courseId={courseId} {...products} />}
+      </div>
     </Layout2>
   );
 }

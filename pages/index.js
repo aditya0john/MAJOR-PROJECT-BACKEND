@@ -7,14 +7,19 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="border border-black p-4 bradius flex items-center text-black justify-between">
-        <div>
-          Hey, <b>{session?.user?.name}</b>
+      <div className="border border-black p-4 rounded-lg flex items-center text-black justify-between hover:">
+        <div className="shdg">
+          Welcome,{" "}
+          <b>
+            <i>{session?.user?.name}</i>
+          </b>
         </div>
 
-        <div className="bradius p-3 flex bg-gray-600 rounded gap-1 text-white p-1 ">
-          <img src={session?.user?.image} className="rounded w-6 h-6 border" />
-          <span>{session?.user?.name}</span>
+        <div className="rounded-lg p-3 flex bg-gray-200 rounded gap-1 text-white p-1 change">
+          <img
+            src={session?.user?.image}
+            className="rounded w-10 h-10 border hover:w-40 hover:h-40"
+          />
         </div>
       </div>
       <hr className="mt-5" />
