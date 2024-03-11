@@ -21,7 +21,13 @@ export default function CourseForm({
 
   async function createProduct(ev) {
     let data = {
-      CourseData,
+      chapterName,
+      content,
+      summary,
+      title,
+      description,
+      price,
+      testName,
     };
     ev.preventDefault();
     if (_id) {
