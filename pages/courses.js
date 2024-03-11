@@ -71,7 +71,7 @@ function Courses() {
             })
             .map((product, i) => (
               <div className="p-1 m-3" key={i}>
-                <table className="basic border border-black">
+                <table className="basic">
                   <tr className="gridd">
                     <td className="flex justify-center items-center">
                       <div>{product.title}</div>
@@ -110,7 +110,7 @@ function Courses() {
                     <td className="flex gap-2 justify-center p-1">
                       <Link
                         href={"/courses/edit/" + product._id}
-                        className="border border-black box change_button rounded-lg flex gap-1 p-1 items-center btn"
+                        className="border box change_button rounded-lg flex gap-1 p-1 items-center btn"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +131,7 @@ function Courses() {
 
                       <Link
                         href={"/courses/delete/" + product._id}
-                        className="border border-black box change_button rounded-lg flex gap-1 p-1 items-center btn"
+                        className="border box change_button rounded-lg flex gap-1 p-1 items-center btn"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

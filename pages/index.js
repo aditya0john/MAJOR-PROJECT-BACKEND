@@ -17,6 +17,10 @@ export default function Home() {
           <span>{session?.user?.name}</span>
         </div>
       </div>
+      <hr className="mt-5" />
+      <div className="hdg flex justify-center font-bold scale-125">
+        VERSUS BACKEND
+      </div>
     </Layout>
   );
 }
