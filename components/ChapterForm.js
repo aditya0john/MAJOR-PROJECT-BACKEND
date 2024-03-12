@@ -9,12 +9,16 @@ export default function ChapterForm({
   description: exsistingDescription,
   price: exsistingPrice,
   chapterName: exsistingChapterName,
+  chapterDescription: exsistingChapterDescription,
   content: exsistingContent,
   summary: exsistingSummary,
   chapters,
 }) {
   let [title, setTitle] = useState(exsistingTitle || "");
   let [description, setDescription] = useState(exsistingDescription || "");
+  let [chapterDescription, setChapterDescription] = useState(
+    exsistingChapterDescription || ""
+  );
   let [price, setPrice] = useState(exsistingPrice || "");
   let [chapterName, setChapterName] = useState(exsistingChapterName || "");
   let [content, setContent] = useState(exsistingContent || "");
@@ -28,6 +32,7 @@ export default function ChapterForm({
       description,
       price,
       chapterName,
+      chapterDescription,
       content,
       summary,
       chapterId: _id,
@@ -47,7 +52,6 @@ export default function ChapterForm({
   if (goToProducts) {
     router.push("/courses");
   }
-  console.log("title", title);
 
   return (
     <form onSubmit={editChapter}>
@@ -64,7 +68,16 @@ export default function ChapterForm({
               onChange={(ev) => setChapterName(ev.target.value)}
             />
           </label>
-          <br />
+          <label>
+            <p className="uppercase font-bold">chapter Description</p>
+            <textarea
+              className="border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
+              name="chapterDescription"
+              value={chapterDescription}
+              placeholder="Enter Chapter Description"
+              onChange={(ev) => setChapterDescription(ev.target.value)}
+            />
+          </label>
           <label>
             <p className="uppercase font-bold">chapter content</p>
             <textarea
@@ -79,7 +92,7 @@ export default function ChapterForm({
             <p className="uppercase font-bold">chapter summary</p>
             <textarea
               className="border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
-              name="content"
+              name="summary"
               value={summary}
               placeholder="Enter Chapter summary"
               onChange={(ev) => setSummary(ev.target.value)}

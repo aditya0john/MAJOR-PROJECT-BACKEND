@@ -48,6 +48,7 @@ export default async function handle(req, res) {
       description,
       price,
       chapterName,
+      chapterDescription,
       content,
       summary,
       _id,
@@ -78,7 +79,12 @@ export default async function handle(req, res) {
         }
       );
     } else if ("chapterName" in req.body) {
-      if (chapterName === "" || content === "" || summary === "") {
+      if (
+        chapterName === "" ||
+        chapterDescription === "" ||
+        content === "" ||
+        summary === ""
+      ) {
         await Course.updateOne(
           { _id },
           { $set: { title, description, price } }
@@ -94,6 +100,7 @@ export default async function handle(req, res) {
           {
             $set: {
               "chapters.$.chapterName": chapterName,
+              "chapters.$.chapterDescription": chapterDescription,
               "chapters.$.content": content,
               "chapters.$.summary": summary,
             },
@@ -103,7 +110,9 @@ export default async function handle(req, res) {
         await Course.updateOne(
           { _id },
           {
-            $push: { chapters: { chapterName, content, summary } },
+            $push: {
+              chapters: { chapterName, chapterDescription, content, summary },
+            },
           }
         );
       }

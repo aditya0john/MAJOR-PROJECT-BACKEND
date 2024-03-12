@@ -10,6 +10,7 @@ export default function CourseForm({
   image,
 }) {
   let [chapterName, setChapterName] = useState("");
+  let [chapterDescription, setChapterDescription] = useState("");
   let [content, setContent] = useState("");
   let [summary, setSummary] = useState("");
   let [title, setTitle] = useState(exsistingTitle || "");
@@ -22,6 +23,7 @@ export default function CourseForm({
   async function createProduct(ev) {
     let data = {
       chapterName,
+      chapterDescription,
       content,
       summary,
       title,
@@ -157,6 +159,15 @@ export default function CourseForm({
             </label>
             <br />
             <label>
+              <p className="uppercase font-bold">chapter Description</p>
+              <textarea
+                className="border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
+                name="chapterDescription"
+                placeholder="Enter Chapter Description"
+                onChange={(ev) => setChapterDescription(ev.target.value)}
+              />
+            </label>
+            <label>
               <p className="uppercase font-bold">chapter content</p>
               <textarea
                 className="border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
@@ -169,7 +180,7 @@ export default function CourseForm({
               <p className="uppercase font-bold">chapter summary</p>
               <textarea
                 className="border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
-                name="content"
+                name="summary"
                 placeholder="Enter Chapter summary"
                 onChange={(ev) => setSummary(ev.target.value)}
               />
