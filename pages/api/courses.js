@@ -58,23 +58,24 @@ export default async function handle(req, res) {
       a,
       b,
       c,
+      testId,
       chapterId,
       courseId,
       testName,
     } = req.body;
 
     console.log("YE RHI UPDATE REQUEST", req.body);
-    if ("question" in req.body) {
+    if ("questions" in req.body) {
       await Course.updateOne(
         { _id: courseId, "tests._id": testId },
 
         {
-          $set: {
-            "tests.$.questions.$.question": questions,
-            "tests.$.problems.$.problem": problems,
-            "tests.$.question.$.options.$.a": a,
-            "tests.$.question.$.options.$.b": b,
-            "tests.$.question.$.options.$.c": c,
+          $push: {
+            "tests.$.questions": {
+              question: questions,
+              options: { a: a, b: b, c: c },
+            },
+            "tests.$.problems": { problem: problems },
           },
         }
       );

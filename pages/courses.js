@@ -61,7 +61,7 @@ function Courses() {
             <th>CHANGE DATA</th>
           </tr>
 
-          <hr className="border border-black mt-10" />
+          <hr className="border border-black mt-10 mb-10" />
 
           {products
             .filter((items) => {
@@ -70,15 +70,15 @@ function Courses() {
                 : items.title.toLocaleLowerCase().includes(search);
             })
             .map((product, i) => (
-              <div className="p-1 m-3" key={i}>
+              <div className="mb-2" key={i}>
                 <table className="basic">
                   <tr className="gridd">
                     <td className="flex justify-center items-center">
-                      <div>{product.title}</div>
+                      <div className="uppercase">{product.title}</div>
                     </td>
 
                     <td className="flex items-center justify-center">
-                      <div className=" overflow-hidden h-12">
+                      <div className="overflow-hidden">
                         {product.description}
                       </div>
                     </td>
@@ -88,23 +88,21 @@ function Courses() {
                     </td>
 
                     <td className="flex items-center justify-center">
-                      <div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke-width="1.5"
-                          stroke="currentColor"
-                          class="w-6 h-6"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M15 8.25H9m6 3H9m3 6-3-3h1.5a3 3 0 1 0 0-6M 12a9 9 0 1 1-18 0 9 9 0 0 1 18 "
-                          />
-                        </svg>
-                        {product.price}
-                      </div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-6 h-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M15 8.25H9m6 3H9m3 6-3-3h1.5a3 3 0 1 0 0-6M 12a9 9 0 1 1-18 0 9 9 0 0 1 18 "
+                        />
+                      </svg>
+                      {product.price}
                     </td>
 
                     <td className="flex gap-2 justify-center p-1">

@@ -66,34 +66,36 @@ export default function TestForm({
         </h1>
         <hr className="border-black" />
 
-        <div className="bg-purple-200 rounded-lg p-3 m-2 text-black">
+        <div className="bg-white border border-black rounded-lg p-4 mt-2">
           <label className="font-bold uppercase">ADD QUESTIONS</label>
-          <input
+          <textarea
+            className="mb-2 border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
             type="string"
             placeholder="enter question"
             onChange={(ev) => setQuestion(ev.target.value)}
           />
           <label className="font-bold uppercase">ADD options</label>
           <input
+            className="border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
             type="string"
-            placeholder="add option"
+            placeholder="add option a"
             onChange={(ev) => setO1(ev.target.value)}
           />
           <input
-            className="mt-1"
+            className="border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
             type="string"
-            placeholder="add option"
+            placeholder="add option b"
             onChange={(ev) => setO2(ev.target.value)}
           />
           <input
-            className="mt-1"
+            className="border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
             type="string"
-            placeholder="add option"
+            placeholder="add option c"
             onChange={(ev) => setO3(ev.target.value)}
           />
           <button
             type="submit"
-            className="btn flex mt-5 bg-yellow-400 text-black p-1 rounded-md"
+            className="btn flex mt-5 border border-black text-black p-1 rounded-md change_button"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -113,16 +115,17 @@ export default function TestForm({
           </button>
         </div>
 
-        <div className="bg-purple-200 rounded-lg p-3 m-2 text-black">
+        <div className="bg-white border border-black rounded-lg p-4 mt-2">
           <label className="font-bold uppercase">ADD PROBLEMS</label>
-          <input
+          <textarea
+            className="border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
             type="string"
             placeholder="enter problem statement"
             onChange={(ev) => setProblem(ev.target.value)}
           />
           <button
             type="submit"
-            className="btn flex mt-5 bg-yellow-400 text-black p-1 rounded-md"
+            className="btn flex mt-5 border border-black text-black p-1 rounded-md change_button"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
