@@ -49,7 +49,9 @@ export default function editCourse() {
               <div key={i}>
                 {product.chapters.map((chapter, j) => (
                   <tr className="grid grid-cols-2" key={j}>
-                    <td className="uppercase">{chapter?.chapterName}</td>
+                    <td className="uppercase font-bold">
+                      <i>{chapter?.chapterName}</i>
+                    </td>
                     <td className="flex gap-2 justify-center p-1">
                       <Link
                         href={`/chapters/edit/chapterId=${chapter._id}&courseId=${id}`}
@@ -117,7 +119,9 @@ export default function editCourse() {
               <div key={i}>
                 {product.tests.map((test, j) => (
                   <tr className="grid grid-cols-2" key={j}>
-                    <td className="uppercase">{test?.testName}</td>
+                    <td className="uppercase font-bold">
+                      <i>{test?.testName}</i>
+                    </td>
                     <td className="flex gap-2 justify-center p-1">
                       <Link
                         href={`/tests/edit/testId=${test._id}&courseId=${id}`}

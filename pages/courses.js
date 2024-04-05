@@ -74,7 +74,7 @@ function Courses() {
                 <table className="basic">
                   <tr className="gridd">
                     <td className="flex justify-center items-center">
-                      <div className="uppercase">{product.title}</div>
+                      <div className="uppercase ">{product.title}</div>
                     </td>
 
                     <td className="flex items-center justify-center">
