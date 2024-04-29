@@ -217,7 +217,7 @@ export default function CourseForm({
             <label>
               <p className="uppercase font-bold">Test name</p>
               <input
-                className="border border-black rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
+                className="border border-black rounded-lg bg-white placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
                 type="text"
                 name="title"
                 placeholder="Enter Chapter Name"

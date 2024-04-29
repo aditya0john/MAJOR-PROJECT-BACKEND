@@ -3,14 +3,15 @@ import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
 
 export default function Navbar() {
-  const inactive = "flex p-1 gap-3";
+  const inactive = "flex p-1 gap-3 ";
   const active = inactive + "rounded-l-lg bg-white text-black";
   const router = useRouter();
   console.log({ router });
 
   async function logout() {
-    router.push("/");
     await signOut();
+    localStorage.removeItem("authToken");
+    window.location.href = "/";
   }
 
   const { pathname } = router;

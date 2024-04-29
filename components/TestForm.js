@@ -61,7 +61,7 @@ export default function TestForm({
   return (
     <form onSubmit={editTest}>
       <div className="bg-yellow-100 rounded-lg p-3">
-        <h1 className="uppercase text-black font-bold p-3">
+        <h1 className="phdg uppercase text-black font-bold p-3">
           ADD QUESTIONS AND PROBLEMS TO TEST
         </h1>
         <hr className="border-black" />
@@ -93,6 +93,14 @@ export default function TestForm({
             placeholder="add option c"
             onChange={(ev) => setO3(ev.target.value)}
           />
+
+          <label className="font-bold uppercase">ADD ANSWER</label>
+          <textarea
+            className="mb-2 border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
+            type="string"
+            placeholder="enter question"
+            onChange={(ev) => setQuestion(ev.target.value)}
+          />
           <button
             type="submit"
             className="btn flex mt-5 border border-black text-black p-1 rounded-md change_button"
@@ -122,6 +130,13 @@ export default function TestForm({
             type="string"
             placeholder="enter problem statement"
             onChange={(ev) => setProblem(ev.target.value)}
+          />
+          <label className="font-bold uppercase">ADD ANSWER</label>
+          <textarea
+            className="mb-2 border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
+            type="string"
+            placeholder="enter question"
+            onChange={(ev) => setQuestion(ev.target.value)}
           />
           <button
             type="submit"

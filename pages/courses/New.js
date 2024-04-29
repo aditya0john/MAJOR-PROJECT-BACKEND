@@ -1,4 +1,3 @@
-import CourseForm from "@/components/CourseForm";
 import Layout2 from "@/components/Layout2";
 import NewCourseForm from "@/components/NewCourseForm";
 

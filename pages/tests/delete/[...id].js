@@ -50,7 +50,7 @@ export default function editCourse() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, [testId, chapterId]);
+  }, [testId, courseId]);
 
   function goback() {
     router.push("/courses");
