@@ -4,8 +4,8 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 function Courses() {
-  let [products, setProducts] = useState([]);
   let [search, setSearch] = useState("");
+  let [products, setProducts] = useState([]);
 
   useEffect(() => {
     axios.get("/api/courses").then((response) => {

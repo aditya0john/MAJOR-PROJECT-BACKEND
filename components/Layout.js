@@ -7,7 +7,7 @@ export default function Layout({ children }) {
     return (
       <>
         <div className="bg-black h-screen flex items-center">
-          <div className="w-full flex justify-center gap-10">
+          <div className="flex justify-center gap-10">
             <button
               onClick={() => signIn("google")}
               className="bg-white rounded-lg px-5 py-5 text-purple-400 btn"
@@ -25,7 +25,7 @@ export default function Layout({ children }) {
     return (
       <div className="bg-black h-screen gridee">
         <Navbar />
-        <div className="bg-white rounded-lg p-2 m-2 ml-0 flex-grow">
+        <div className="bg-white rounded-lg p-2 m-2 ml-0 flex-grow overflow-x-hidden overflow-y-scroll">
           {children}
         </div>
       </div>

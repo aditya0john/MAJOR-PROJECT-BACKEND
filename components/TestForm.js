@@ -23,6 +23,8 @@ export default function TestForm({
   let [a, setO1] = useState("");
   let [b, setO2] = useState("");
   let [c, setO3] = useState("");
+  let [Qans, setQans] = useState("");
+  let [Pans, setPans] = useState("");
   let [goToProducts, setGoToProducts] = useState(false);
   let router = useRouter();
   let edit = "";
@@ -39,6 +41,8 @@ export default function TestForm({
       a,
       b,
       c,
+      Qans,
+      Pans,
       testId,
       courseId,
       edit,
@@ -99,7 +103,7 @@ export default function TestForm({
             className="mb-2 border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
             type="string"
             placeholder="enter question"
-            onChange={(ev) => setQuestion(ev.target.value)}
+            onChange={(ev) => setQans(ev.target.value)}
           />
           <button
             type="submit"
@@ -136,7 +140,7 @@ export default function TestForm({
             className="mb-2 border border-black bg-white rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
             type="string"
             placeholder="enter question"
-            onChange={(ev) => setQuestion(ev.target.value)}
+            onChange={(ev) => setPans(ev.target.value)}
           />
           <button
             type="submit"

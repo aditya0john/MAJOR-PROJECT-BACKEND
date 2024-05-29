@@ -38,7 +38,7 @@ export default async function handle(req, res) {
       description,
       price,
     });
-    console.log("YE KR DIYA MEINE DATA PUSH MONGODB MEIN : ", courseDoc);
+    console.log("DATA PUSHED IN MONGODB : ", courseDoc);
     res.json(courseDoc);
   }
 
@@ -58,6 +58,8 @@ export default async function handle(req, res) {
       a,
       b,
       c,
+      Qans,
+      Pans,
       testId,
       chapterId,
       courseId,
@@ -74,8 +76,9 @@ export default async function handle(req, res) {
             "tests.$.questions": {
               question: questions,
               options: { a: a, b: b, c: c },
+              answer: Qans,
             },
-            "tests.$.problems": { problem: problems },
+            "tests.$.problems": { problem: problems, answer: Pans },
           },
         }
       );

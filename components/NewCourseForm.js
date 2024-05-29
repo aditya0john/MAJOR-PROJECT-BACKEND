@@ -44,7 +44,7 @@ export default function NewCourseForm({
         <div className="bg-white rounded p-4">
           <label className="uppercase font-bold">Course Name</label>
           <input
-            className="border border-black rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
+            className="bg-white border border-black rounded-lg placeholder-black change hover:placeholder-white"
             type="text"
             placeholder="Enter Course name"
             value={title}
@@ -53,7 +53,7 @@ export default function NewCourseForm({
 
           <label className="uppercase font-bold">Course Description</label>
           <textarea
-            className="border border-black rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
+            className="bg-white border border-black rounded-lg placeholder-black change hover:placeholder-white"
             placeholder="Enter Course Description"
             value={description}
             onChange={(ev) => setDescription(ev.target.value)}
@@ -61,7 +61,7 @@ export default function NewCourseForm({
 
           <label className="uppercase font-bold">Course Price</label>
           <input
-            className="border border-black rounded-lg placeholder-black hover:bg-black hover:placeholder-white hover:text-white"
+            className="bg-white border border-black rounded-lg placeholder-black change hover:placeholder-white"
             type="number"
             placeholder="Enter Price (in Rs)"
             value={price}
