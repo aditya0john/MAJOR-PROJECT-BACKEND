@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout";
+import Layout from "../components/Layout";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 
@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const { data: session } = useSession();
   console.log({ session });
+
   let [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -20,17 +21,17 @@ export default function Home() {
   return (
     <Layout>
       <div className="border border-black border-3 p-4 rounded-lg flex items-center text-black justify-between hover:">
-        <div className="shdg">
+        <div className="text-2xl">
           Welcome,{" "}
           <b>
             <i>{session?.user?.name}</i>
           </b>
         </div>
 
-        <div className="rounded-lg p-2 flex bg-gray-200 rounded gap-1 text-white p-1 change">
+        <div className="rounded-lg p-2 flex bg-gray-200 gap-1 text-white change">
           <img
             src={session?.user?.image}
-            className="rounded w-15 h-15 border hover:w-40 hover:h-40"
+            className="rounded w-10 h-10 border hover:w-40 hover:h-40"
           />
         </div>
       </div>
@@ -39,7 +40,7 @@ export default function Home() {
         VERSUS BACKEND
       </div>
 
-      <div className="rounded-lg bg-black p-5 mt-10">
+      <div className="rounded-lg bg-black p-1 mt-10">
         <div className="bg-white p-3 rounded-lg ">
           <h1 className="phdg flex justify-center items-center">USERS</h1>
           <hr className="border border-black" />
@@ -54,11 +55,6 @@ export default function Home() {
                     <i>{user.name}</i>
                   </div>
                   <div>{user.email}</div>
-                  <img
-                    src={user.image}
-                    alt="image"
-                    className="rounded-lg w-15 h-15 border hover:w-40 hover:h-40"
-                  />
                 </div>
               );
             })}

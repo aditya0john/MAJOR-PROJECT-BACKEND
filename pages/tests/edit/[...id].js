@@ -1,12 +1,14 @@
-import Layout2 from "@/components/Layout2";
-import TestForm from "@/components/TestForm";
-import axios from "axios";
+import { supabase } from "../../../lib/supabaseClient";
+import Layout2 from "../../../components/Layout2";
+import TestForm from "../../../components/TestForm";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 
 function EditTest() {
+  let [questionData, setQuestionData] = useState(null);
+  let [problemData, setProblemData] = useState(null);
   let router = useRouter();
-  let testId, courseId;
+  let testId;
 
   // Ensure router.query.id is defined and is an array with at least one element
   if (Array.isArray(router.query.id) && router.query.id.length > 0) {
@@ -25,28 +27,59 @@ function EditTest() {
       if (key === "testId") {
         testId = value;
       }
-
-      // Check if the key is 'courseId'
-      if (key === "courseId") {
-        courseId = value;
-      }
     }
 
     console.log("Test ID:", testId);
-    console.log("Course ID:", courseId);
   } else {
     console.error("router.query.id is not an array with at least one element");
   }
 
-  let [goToProducts, setGoToProducts] = useState(false);
+  useEffect(() => {
+    if (!testId) return;
 
-  if (goToProducts) {
-    router.push("/courses/edit");
-  }
+    async function fetchQuesData() {
+      const { data, error } = await supabase
+        .from("questions")
+        .select("*")
+        .eq("test_id", testId)
+        .single();
+
+      if (error) {
+        console.error("Error fetching test question data:", error);
+      } else {
+        console.log("ChapterData", data);
+        setQuestionData(data);
+      }
+    }
+
+    async function fetchProbData() {
+      const { data, error } = await supabase
+        .from("problems")
+        .select("*")
+        .eq("test_id", testId)
+        .single();
+
+      if (error) {
+        console.error("Error fetching test problem data:", error);
+      } else {
+        console.log("ChapterData", data);
+        setProblemData(data);
+      }
+    }
+
+    fetchQuesData();
+    fetchProbData();
+  }, [testId]);
 
   return (
     <Layout2>
-      <TestForm testId={testId} courseId={courseId} />
+      {questionData && problemData && (
+        <TestForm
+          testId={testId}
+          questionData={questionData}
+          problemData={problemData}
+        />
+      )}
     </Layout2>
   );
 }

@@ -1,35 +1,26 @@
-import ChapterForm from "@/components/ChapterForm";
-import Layout2 from "@/components/Layout2";
-import axios from "axios";
+import { supabase } from "../../../lib/supabaseClient";
+import ChapterForm from "../../../components/ChapterForm";
+import Layout2 from "../../../components/Layout2";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function editChapters() {
   let router = useRouter();
   console.log("YE DEKH", router.query.id);
-  let [products, setProducts] = useState([]);
+  let [chapterData, setChapterData] = useState([]);
 
   let chapterId, courseId;
 
   // Ensure router.query.id is defined and is an array with at least one element
   if (Array.isArray(router.query.id) && router.query.id.length > 0) {
-    // Access the first element of the array
     const queryString = router.query.id[0];
-
-    // Split the query string by '&' to separate key-value pairs
     const queryParams = queryString.split("&");
 
-    // Loop through each key-value pair
     for (const param of queryParams) {
-      // Split the key-value pair by '=' to separate key and value
       const [key, value] = param.split("=");
-
-      // Check if the key is 'chapterId'
       if (key === "chapterId") {
         chapterId = value;
       }
-
-      // Check if the key is 'courseId'
       if (key === "courseId") {
         courseId = value;
       }
@@ -42,17 +33,25 @@ export default function editChapters() {
   }
 
   useEffect(() => {
-    const url = `/api/courses?id=${courseId}&chapterId=${chapterId}`;
+    if (!chapterId) return;
 
-    axios
-      .get(url)
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, [courseId, chapterId]);
+    async function fetchData() {
+      const { data, error } = await supabase
+        .from("chapters")
+        .select("*")
+        .eq("id", chapterId)
+        .single();
+
+      if (error) {
+        console.error("Error fetching chapter data:", error);
+      } else {
+        console.log("ChapterData", data);
+        setChapterData(data);
+      }
+    }
+
+    fetchData();
+  }, [chapterId]);
 
   return (
     <Layout2>
@@ -61,9 +60,11 @@ export default function editChapters() {
           EDIT THE COURSE
         </h1>
         <hr />
-
-        {console.log("ye rha data jo form mein JARAA", products)}
-        {products && <ChapterForm courseId={courseId} {...products} />}
+        {chapterData ? (
+          <ChapterForm courseId={courseId} {...chapterData} />
+        ) : (
+          <div>Chapter ID undefined/not available</div>
+        )}
       </div>
     </Layout2>
   );

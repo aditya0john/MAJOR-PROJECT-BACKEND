@@ -1,5 +1,6 @@
-import Layout2 from "@/components/Layout2";
+import Layout2 from "../components/Layout2";
 import axios from "axios";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -10,6 +11,7 @@ function Courses() {
   useEffect(() => {
     axios.get("/api/courses").then((response) => {
       setProducts(response.data);
+      console.log(response.data);
     });
   }, []);
 
@@ -53,7 +55,7 @@ function Courses() {
 
       <div className="rounded-lg text-black p-8 mt-3 border border-black box">
         <table>
-          <tr className="gridd">
+          <tr className="grid grid-cols-5">
             <th>COURSES NAME & CHAPTERS</th>
             <th>COURSE DESCRIPTION</th>
             <th>IMAGE SOURCE</th>
@@ -84,7 +86,15 @@ function Courses() {
                     </td>
 
                     <td className="flex items-center justify-center">
-                      <div></div>
+                      <div>
+                        <Image
+                          src={product.image}
+                          width={100}
+                          height={100}
+                          className="object-cover"
+                          alt="course image"
+                        />
+                      </div>
                     </td>
 
                     <td className="flex items-center justify-center">
@@ -107,7 +117,7 @@ function Courses() {
 
                     <td className="flex gap-2 justify-center p-1">
                       <Link
-                        href={"/courses/edit/" + product._id}
+                        href={"/courses/edit/" + product.id}
                         className="border box change_button rounded-lg flex gap-1 p-1 items-center btn"
                       >
                         <svg
@@ -128,7 +138,7 @@ function Courses() {
                       </Link>
 
                       <Link
-                        href={"/courses/delete/" + product._id}
+                        href={"/courses/delete/" + product.id}
                         className="border box change_button rounded-lg flex gap-1 p-1 items-center btn"
                       >
                         <svg

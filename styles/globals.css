@@ -97,8 +97,8 @@
 }
 
 .btn:hover {
-  transform: translateX(12px) scale(1.2);
-  transition: 0.5s ease-in-out 0ms;
+  transform: scale(1.1);
+  transition: 0.1s ease-in-out 0ms;
 }
 
 .gridd {
@@ -113,7 +113,7 @@
 
 .gridee {
   display: grid;
-  grid-template-columns: 0.5fr 2fr;
+  grid-template-columns: 0.3fr 2fr;
 }
 
 input,

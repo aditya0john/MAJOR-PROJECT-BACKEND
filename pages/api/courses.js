@@ -1,49 +1,71 @@
-import { mongooseConnect } from "@/lib/mongoose";
-import { Course } from "@/models/Course";
+import { supabase } from "../../lib/supabaseClient";
 
 export default async function handle(req, res) {
   const { method } = req;
-  await mongooseConnect();
 
-  if (method === "GET") {
-    // Check if both courseId and chapterId are provided in the query parameters
-    if (req.query?.id && req.query?.chapterId) {
-      // Fetch the specific chapter based on both courseId and chapterId
-      const course = await Course.findOne({
-        _id: req.query.id,
-        "chapters._id": req.query.chapterId,
-      });
+  try {
+    if (method === "GET") {
+      if (req.query?.id && req.query?.chapterId) {
+        const { data, error } = await supabase
+          .from("chapters")
+          .select("*")
+          .eq("id", chapterId)
+          .eq("course_id", id)
+          .single();
 
-      // Find the specific chapter within the course
-      const chapter = course.chapters.find(
-        (chapter) => chapter._id.toString() === req.query.chapterId
-      );
+        if (error) throw error;
+        return res.status(200).json(data);
 
-      // Return only the filtered chapter object
-      res.json(chapter);
-    } else if (req.query?.id) {
-      // Fetch the specific course based on courseId
-      res.json(await Course.findOne({ _id: req.query.id }));
-    } else {
-      // Fetch all courses if no specific courseId is provided
-      res.json(await Course.find());
+        // // Find the specific chapter within the course
+        // const chapter = course.chapters.find(
+        //   (chapter) => chapter._id.toString() === req.query.chapterId
+        // );
+
+        // // Return only the filtered chapter object
+        // res.json(chapter);
+        
+      } else if (req.query?.id) {
+        const { data: course, error } = await supabase
+          .from("courses")
+          .select("*, chapters(*), tests(*, questions(*), problems(*))")
+          .eq("id", id)
+          .single();
+
+        if (error) throw error;
+        return res.status(200).json(course);
+      } else {
+        // Fetch all courses if no specific courseId is provided
+        const { data, error } = await supabase.from("courses").select("*");
+        if (error) throw error;
+        return res.status(200).json(data);
+      }
     }
+  } catch (error) {
+    return res.status(500).json({ error: err.message });
   }
 
   if (method === "POST") {
     const { title, description, price } = req.body;
+
     console.log("YE THII MERI REQUEST : ", req.body);
-    const courseDoc = await Course.create({
-      title,
-      description,
-      price,
-    });
-    console.log("DATA PUSHED IN MONGODB : ", courseDoc);
-    res.json(courseDoc);
+
+    try {
+      const { data, error } = await supabase
+        .from("courses")
+        .insert([{ title, description, price }])
+        .select()
+        .single();
+
+      if (error) throw error;
+      return res.status(200).json(data);
+    } catch (error) {
+      return res.status(500).json({ error: err.message });
+    }
   }
 
   if (method === "PUT") {
     let {
+      _id,
       title,
       description,
       price,
@@ -51,8 +73,7 @@ export default async function handle(req, res) {
       chapterDescription,
       content,
       summary,
-      _id,
-      edit,
+      testId,
       questions,
       problems,
       a,
@@ -60,97 +81,123 @@ export default async function handle(req, res) {
       c,
       Qans,
       Pans,
-      testId,
       chapterId,
       courseId,
       testName,
     } = req.body;
 
     console.log("YE RHI UPDATE REQUEST", req.body);
-    if ("questions" in req.body) {
-      await Course.updateOne(
-        { _id: courseId, "tests._id": testId },
 
-        {
-          $push: {
-            "tests.$.questions": {
-              question: questions,
-              options: { a: a, b: b, c: c },
-              answer: Qans,
+    try {
+      if (chapterName) {
+        if (chapterId) {
+          // Update chapter
+          const { error } = await supabase
+            .from("chapters")
+            .update({
+              chapter_name: chapterName,
+              chapter_description: chapterDescription,
+              content,
+              summary,
+            })
+            .eq("id", chapterId);
+          if (error) throw error;
+        } else {
+          // Add new chapter
+          const { error } = await supabase.from("chapters").insert([
+            {
+              course_id: id,
+              chapter_name: chapterName,
+              chapter_description: chapterDescription,
+              content,
+              summary,
             },
-            "tests.$.problems": { problem: problems, answer: Pans },
-          },
+          ]);
+          if (error) throw error;
         }
-      );
-    } else if ("chapterName" in req.body) {
-      if (
-        chapterName === "" ||
-        chapterDescription === "" ||
-        content === "" ||
-        summary === ""
-      ) {
-        await Course.updateOne(
-          { _id },
-          { $set: { title, description, price } }
-        );
-      } else if (
-        "edit" in req.body &&
-        title === "" &&
-        description === "" &&
-        price === ""
-      ) {
-        await Course.updateOne(
-          { _id: courseId, "chapters._id": chapterId },
-          {
-            $set: {
-              "chapters.$.chapterName": chapterName,
-              "chapters.$.chapterDescription": chapterDescription,
-              "chapters.$.content": content,
-              "chapters.$.summary": summary,
-            },
-          }
-        );
-      } else {
-        await Course.updateOne(
-          { _id },
-          {
-            $push: {
-              chapters: { chapterName, chapterDescription, content, summary },
-            },
-          }
-        );
       }
-    }
 
-    if ("testName" in req.body) {
-      if (testName === "") {
-        await Course.updateOne(
-          { _id },
-          { $set: { title, description, price } }
-        );
-      } else {
-        await Course.updateOne(
-          { _id },
-          {
-            $push: { tests: { testName } },
-          }
-        );
+      if (testName) {
+        if (testId) {
+          // Update test name
+          const { error } = await supabase
+            .from("tests")
+            .update({ test_name: testName })
+            .eq("id", testId);
+          if (error) throw error;
+        } else {
+          // Add new test
+          const { error } = await supabase.from("tests").insert([
+            {
+              course_id: id,
+              test_name: testName,
+            },
+          ]);
+          if (error) throw error;
+        }
       }
-    }
 
-    res.json(true);
+      if (questions) {
+        // Add question
+        const { error } = await supabase.from("questions").insert([
+          {
+            test_id: testId,
+            question: questions,
+            option_a: a,
+            option_b: b,
+            option_c: c,
+            answer: Qans,
+          },
+        ]);
+        if (error) throw error;
+      }
+
+      if (problems) {
+        // Add problem
+        const { error } = await supabase.from("problems").insert([
+          {
+            test_id: testId,
+            problem: problems,
+            answer: Pans,
+          },
+        ]);
+        if (error) throw error;
+      }
+
+      if (title || description || price) {
+        // Update course info
+        const { error } = await supabase
+          .from("courses")
+          .update({ title, description, price })
+          .eq("id", id);
+        if (error) throw error;
+      }
+
+      return res.status(200).json(true);
+    } catch (error) {
+      return res.status(500).json({ error: err.message });
+    }
   }
 
   if (method === "DELETE") {
-    if (req.query?.id && req.query?.chapterId) {
-      await Course.updateOne(
-        { _id: req.query.id },
-        { $pull: { chapters: { _id: req.query.chapterId } } }
-      );
-      res.json(true);
-    } else if (req.query?.id) {
-      await Course.deleteOne({ _id: req.query.id });
-      res.json(true);
+    try {
+      if (req.query?.id && req.query?.chapterId) {
+        const { error } = await supabase
+          .from("chapters")
+          .delete()
+          .eq("id", chapterId)
+          .eq("course_id", id);
+
+        if (error) throw error;
+        return res.status(200).json(true);
+      } else if (req.query?.id) {
+        const { error } = await supabase.from("courses").delete().eq("id", id);
+        if (error) throw error;
+        return res.status(200).json(true);
+      }
+    } catch (error) {
+      return res.status(500).json({ error: err.message });
     }
   }
+  res.status(405).json({ error: "Method not allowed" });
 }

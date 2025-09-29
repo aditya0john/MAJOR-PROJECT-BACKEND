@@ -1,5 +1,5 @@
-import CourseForm from "@/components/CourseForm";
-import Layout2 from "@/components/Layout2";
+import CourseForm from "../components/CourseForm";
+import Layout2 from "../components/Layout2";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

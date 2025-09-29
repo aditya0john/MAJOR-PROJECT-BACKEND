@@ -1,5 +1,6 @@
-import Layout2 from "@/components/Layout2";
-import NewCourseForm from "@/components/NewCourseForm";
+
+import Layout2 from "../../components/Layout2";
+import NewCourseForm from "../../components/NewCourseForm";
 
 export default function New() {
   return (
